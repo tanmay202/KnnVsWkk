@@ -127,7 +127,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
   const [algoExpanded, setAlgoExpanded] = useState<boolean>(true);
 
   return (
-    <div className="w-full lg:w-[330px] xl:w-[360px] flex-none h-full bg-[#0e1420] border border-slate-800/80 rounded-lg flex flex-col overflow-hidden select-none text-xs shadow-sm">
+    <div className="w-full lg:w-[330px] xl:w-[360px] flex-none lg:h-full bg-[#0e1420] border border-slate-800/80 rounded-lg flex flex-col overflow-hidden select-none text-xs shadow-sm">
       {/* 1. Mode Switcher (Segmented Control) */}
       <div className="flex-none p-1.5 border-b border-slate-800/70 bg-slate-950/40">
         <div className="bg-slate-950/90 border border-slate-800/80 p-0.5 rounded-md flex items-center gap-0.5">

@@ -3,6 +3,7 @@ import { renderToString } from 'react-dom/server';
 import { Header } from '../Header';
 import { ControlPanel } from '../ControlPanel';
 import { VoteTable } from '../VoteTable';
+import { ArenaCanvas } from '../ArenaCanvas';
 import { QueryResult } from '../../knn/types';
 
 // Strip React SSR comment markers for clean text assertions
@@ -279,5 +280,33 @@ describe('Redesigned UI Components', () => {
     expect(revealedHtml).toContain('0.500');
     expect(revealedHtml).toContain('yours (✦)');
     expect(revealedHtml).toContain('base');
+  });
+
+  it('renders ArenaCanvas container element with canvas and responsive flex classes', () => {
+    const html = cleanHtml(
+      renderToString(
+        <ArenaCanvas
+          mode="play"
+          Xtr={[[0, 0], [1, 1]]}
+          ytr={[0, 1]}
+          nBase={2}
+          C={2}
+          focus={{ point: [0.5, 0.5], truth: 0 }}
+          revealed={false}
+          k={3}
+          metric="euclidean"
+          scheme="inverse"
+          boundary="none"
+          bounds={{ lo: [-3, -3], hi: [3, 3] }}
+          cachedQuery={null}
+          onCanvasClick={() => {}}
+          onHoverMove={() => {}}
+        />
+      )
+    );
+
+    expect(html).toContain('<canvas');
+    expect(html).toContain('cursor-crosshair');
+    expect(html).toContain('min-h-[300px]');
   });
 });

@@ -690,12 +690,12 @@ export const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="h-[100dvh] max-h-[100dvh] bg-[#0b0f17] text-slate-100 flex flex-col font-sans overflow-hidden select-none">
+    <div className="min-h-[100dvh] lg:h-[100dvh] lg:max-h-[100dvh] bg-[#0b0f17] text-slate-100 flex flex-col font-sans overflow-x-hidden overflow-y-auto lg:overflow-hidden select-none">
       <Header />
 
-      <main className="flex-1 min-h-0 min-w-0 w-full p-2 sm:p-2.5 lg:p-3 flex flex-col lg:flex-row gap-2.5 lg:gap-3 overflow-hidden">
+      <main className="flex-1 min-h-0 min-w-0 w-full p-2 sm:p-2.5 lg:p-3 flex flex-col lg:flex-row gap-2.5 lg:gap-3 overflow-y-auto lg:overflow-hidden">
         {/* Left Column: Canvas + Live Vote Table */}
-        <div className="flex-1 min-h-0 min-w-0 h-full flex flex-col gap-2 overflow-hidden">
+        <div className="flex-1 min-h-0 min-w-0 w-full lg:h-full flex flex-col gap-2 overflow-visible lg:overflow-hidden">
           <ArenaCanvas
             mode={mode}
             Xtr={Xtr}

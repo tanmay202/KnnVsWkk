@@ -55,6 +55,10 @@ export const ArenaCanvas: React.FC<ArenaCanvasProps> = ({
     const container = containerRef.current;
     if (!container) return;
 
+    if (container.clientWidth > 0 && container.clientHeight > 0) {
+      setDimensions({ width: container.clientWidth, height: container.clientHeight });
+    }
+
     const observer = new ResizeObserver((entries) => {
       for (const entry of entries) {
         const { width, height } = entry.contentRect;
@@ -91,7 +95,7 @@ export const ArenaCanvas: React.FC<ArenaCanvasProps> = ({
     (pt: Point, width: number, height: number): [number, number] => {
       const { scale, offsetX, offsetY } = getTransform(width, height);
       const cx = offsetX + (pt[0] - bounds.lo[0]) * scale;
-      const cy = height - (offsetY + (pt[1] - bounds.lo[1]) * scale);
+      const cy = offsetY + (bounds.hi[1] - pt[1]) * scale;
       return [cx, cy];
     },
     [bounds, getTransform]
@@ -102,11 +106,27 @@ export const ArenaCanvas: React.FC<ArenaCanvasProps> = ({
     (cx: number, cy: number, width: number, height: number): Point => {
       const { scale, offsetX, offsetY } = getTransform(width, height);
       const wx = bounds.lo[0] + (cx - offsetX) / scale;
-      const wy = bounds.lo[1] + (height - cy - offsetY) / scale;
+      const wy = bounds.hi[1] - (cy - offsetY) / scale;
       return [wx, wy];
     },
     [bounds, getTransform]
   );
+
+  // Safe roundRect helper for environments/browsers lacking native ctx.roundRect
+  const safeRoundRect = (
+    ctx: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+    w: number,
+    h: number,
+    r: number
+  ) => {
+    if (typeof ctx.roundRect === 'function') {
+      ctx.roundRect(x, y, w, h, r);
+    } else {
+      ctx.rect(x, y, w, h);
+    }
+  };
 
   // Draw 5-pointed star
   const drawStar = (
@@ -291,6 +311,7 @@ export const ArenaCanvas: React.FC<ArenaCanvasProps> = ({
 
     const width = dimensions.width;
     const height = dimensions.height;
+    if (width <= 0 || height <= 0) return;
     const dpr = window.devicePixelRatio || 1;
 
     canvas.width = width * dpr;
@@ -312,7 +333,7 @@ export const ArenaCanvas: React.FC<ArenaCanvasProps> = ({
     ctx.fillRect(offsetX, offsetY, plotW, plotH);
 
     // 1. Draw heatmap boundary if active
-    if (bgCanvas) {
+    if (bgCanvas && plotW > 0 && plotH > 0) {
       ctx.imageSmoothingEnabled = true;
       ctx.drawImage(bgCanvas, offsetX, offsetY, plotW, plotH);
     }
@@ -480,7 +501,7 @@ export const ArenaCanvas: React.FC<ArenaCanvasProps> = ({
         const rankText = `${r + 1}`;
         ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
         ctx.beginPath();
-        ctx.roundRect(tx + 4, ty - 15, 15, 14, 2);
+        safeRoundRect(ctx, tx + 4, ty - 15, 15, 14, 2);
         ctx.fill();
         ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
         ctx.lineWidth = 1;
@@ -541,7 +562,7 @@ export const ArenaCanvas: React.FC<ArenaCanvasProps> = ({
 
       ctx.fillStyle = 'rgba(10, 14, 23, 0.92)';
       ctx.beginPath();
-      ctx.roundRect(badgeX, badgeY, titleW + 16, 18, 3);
+      safeRoundRect(ctx, badgeX, badgeY, titleW + 16, 18, 3);
       ctx.fill();
       ctx.strokeStyle = 'rgba(51, 65, 85, 0.7)';
       ctx.lineWidth = 1;
@@ -578,7 +599,7 @@ export const ArenaCanvas: React.FC<ArenaCanvasProps> = ({
     ctx.strokeStyle = 'rgba(51, 65, 85, 0.8)';
     ctx.lineWidth = 1;
     ctx.beginPath();
-    ctx.roundRect(legX, legY, legendWidth, legendHeight, 4);
+    safeRoundRect(ctx, legX, legY, legendWidth, legendHeight, 4);
     ctx.fill();
     ctx.stroke();
 
@@ -687,7 +708,7 @@ export const ArenaCanvas: React.FC<ArenaCanvasProps> = ({
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-full flex-1 min-h-0 bg-[#0e1420] rounded-lg overflow-hidden border border-slate-800/80 shadow-inner flex items-center justify-center select-none"
+      className="relative w-full flex-1 min-h-[300px] sm:min-h-[360px] bg-[#0e1420] rounded-lg overflow-hidden border border-slate-800/80 shadow-inner flex items-center justify-center select-none"
     >
       <canvas
         ref={canvasRef}
