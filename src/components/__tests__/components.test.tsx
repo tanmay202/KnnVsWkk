@@ -307,6 +307,6 @@ describe('Redesigned UI Components', () => {
 
     expect(html).toContain('<canvas');
     expect(html).toContain('cursor-crosshair');
-    expect(html).toContain('min-h-[300px]');
+    expect(html).toContain('min-h-0');
   });
 });

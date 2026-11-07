@@ -137,7 +137,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
   const [algoExpanded, setAlgoExpanded] = useState<boolean>(true);
 
   return (
-    <div className="w-full lg:w-[320px] xl:w-[348px] flex-none lg:h-full bg-[#0d1424] border border-slate-800/60 rounded-xl flex flex-col overflow-hidden select-none text-xs shadow-lg ring-1 ring-white/[0.04]">
+    <div className="w-full md:w-[320px] xl:w-[348px] flex-none md:h-full bg-[#0d1424] border border-slate-800/60 rounded-xl flex flex-col overflow-hidden select-none text-xs shadow-lg ring-1 ring-white/[0.04]">
 
       {/* ── 1. Mode Switcher ── */}
       <div className="flex-none p-2 bg-slate-950/30">
