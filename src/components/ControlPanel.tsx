@@ -139,7 +139,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
   return (
     <div className="w-full md:w-[320px] xl:w-[348px] flex-none md:h-full bg-[#0d1424] border border-slate-800/60 rounded-xl flex flex-col overflow-hidden select-none text-xs shadow-lg ring-1 ring-white/[0.04]">
 
-      {/* ── 1. Mode Switcher ── */}
+      {/* ── 1. Mode Switcher (pinned) ── */}
       <div className="flex-none p-2 bg-slate-950/30">
         <div className="bg-slate-950/70 border border-slate-800/60 p-1 rounded-lg flex gap-0.5">
           {([
@@ -161,10 +161,13 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
         </div>
       </div>
 
+      {/* ── Scrollable body ── */}
+      <div className="flex-1 min-h-0 overflow-y-auto">
+
       <Divider />
 
       {/* ── 2. Mode-specific section ── */}
-      <div className="flex-none overflow-y-auto">
+      <div className="flex-none">
         {isWedge ? (
           /* Wedge Puzzle Controls */
           <div className="p-3 flex flex-col gap-3">
@@ -587,12 +590,14 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
       <Divider />
 
       {/* ── 5. Status / Telemetry ── */}
-      <div className="flex-1 min-h-[48px] p-3 bg-slate-950/30 flex flex-col gap-1 overflow-hidden">
+      <div className="flex-none min-h-[48px] p-3 bg-slate-950/30 flex flex-col gap-1">
         <SLabel>Status</SLabel>
-        <p className="font-mono text-[11px] text-slate-400 leading-relaxed overflow-y-auto whitespace-pre-line flex-1">
+        <p className="font-mono text-[11px] text-slate-400 leading-relaxed whitespace-pre-line">
           {statusText || 'Select an action or probe the canvas to begin.'}
         </p>
       </div>
+
+      </div>{/* end scrollable body */}
     </div>
   );
 };
