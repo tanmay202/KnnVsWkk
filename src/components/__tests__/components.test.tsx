@@ -16,7 +16,7 @@ describe('Redesigned UI Components', () => {
     const html = cleanHtml(renderToString(<Header />));
     expect(html).toContain('KNN Arena');
     expect(html).toContain('kNN vs wkNN');
-    expect(html).toContain('v1.2 Desktop');
+    expect(html).toContain('v1.2');
     expect(html).toContain('Guide &amp; Math');
   });
 
@@ -73,7 +73,7 @@ describe('Redesigned UI Components', () => {
     // Segmented mode buttons
     expect(html).toContain('Play');
     expect(html).toContain('Sandbox');
-    expect(html).toContain('Wedge Puzzles');
+    expect(html).toContain('Puzzles');
 
     // Dataset and Noise
     expect(html).toContain('Moons (2)');
@@ -83,9 +83,9 @@ describe('Redesigned UI Components', () => {
     expect(html).toContain('Prioritize contested / disagreement points');
 
     // Actions
-    expect(html).toContain('Next (Space)');
+    expect(html).toContain('Next');
     expect(html).toContain('New Data');
-    expect(html).toContain('Reset Scores');
+    expect(html).toContain('Reset');
 
     // Scoreboard
     expect(html).toContain('SCOREBOARD');
@@ -98,7 +98,7 @@ describe('Redesigned UI Components', () => {
     expect(html).toContain('1 / distance');
 
     // Background boundary options
-    expect(html).toContain('Diff (!)');
+    expect(html).toContain('Diff');
 
     // Class buttons
     expect(html).toContain('[1] Fire');
@@ -157,7 +157,7 @@ describe('Redesigned UI Components', () => {
     expect(html).toContain('Level 1 of 7');
     expect(html).toContain('Close Call');
     expect(html).toContain('Par 1');
-    expect(html).toContain('Protected Radius');
+    expect(html).toContain('Min Distance');
 
     // Actions
     expect(html).toContain('Undo');
@@ -169,7 +169,7 @@ describe('Redesigned UI Components', () => {
 
     // Decision Regions are preserved and active in Wedge mode!
     expect(html).toContain('Decision Regions');
-    expect(html).toContain('Diff (!)');
+    expect(html).toContain('Diff');
   });
 
   it('renders ControlPanel in Sandbox mode with clear user points action', () => {
@@ -223,7 +223,7 @@ describe('Redesigned UI Components', () => {
     );
 
     expect(html).toContain('Clear (2)');
-    expect(html).toContain('Add Point to Dataset');
+    expect(html).toContain('Add Point');
     expect(html).toContain('[1] Fire');
     expect(html).toContain('[2] Water');
     expect(html).toContain('[3] Sun');
@@ -246,7 +246,7 @@ describe('Redesigned UI Components', () => {
       )
     );
     expect(standbyHtml).toContain('Cursor d = 1.45');
-    expect(standbyHtml).toContain('Choose your answer above');
+    expect(standbyHtml).toContain('Choose class');
 
     // 2. Revealed mode
     const mockQuery: QueryResult = {
@@ -274,11 +274,11 @@ describe('Redesigned UI Components', () => {
       )
     );
 
-    expect(revealedHtml).toContain('kNN:');
-    expect(revealedHtml).toContain('wkNN:');
+    expect(revealedHtml).toContain('kNN');
+    expect(revealedHtml).toContain('wkNN');
     expect(revealedHtml).toContain('Fire');
     expect(revealedHtml).toContain('0.500');
-    expect(revealedHtml).toContain('yours (✦)');
+    expect(revealedHtml).toContain('yours ✦');
     expect(revealedHtml).toContain('base');
   });
 

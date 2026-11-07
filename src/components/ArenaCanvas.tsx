@@ -708,7 +708,7 @@ export const ArenaCanvas: React.FC<ArenaCanvasProps> = ({
   return (
     <div
       ref={containerRef}
-      className="relative w-full flex-1 min-h-[300px] sm:min-h-[360px] bg-[#0e1420] rounded-lg overflow-hidden border border-slate-800/80 shadow-inner flex items-center justify-center select-none"
+      className="relative w-full flex-1 min-h-[300px] sm:min-h-[360px] lg:min-h-0 bg-[#080c14] rounded-xl overflow-hidden border border-slate-800/50 shadow-inner flex items-center justify-center select-none ring-1 ring-white/[0.03]"
     >
       <canvas
         ref={canvasRef}
