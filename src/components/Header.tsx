@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Swords, BookOpen, X, Sparkles, Command } from 'lucide-react';
+import { Swords, BookOpen, X, Sparkles, Command, FileText } from 'lucide-react';
 
 export const Header: React.FC = () => {
   const [showHelp, setShowHelp] = useState(false);
@@ -46,6 +46,17 @@ export const Header: React.FC = () => {
               </React.Fragment>
             ))}
           </div>
+
+          {/* Documentation button */}
+          <a
+            href="https://drive.google.com/file/d/1jld26g6Wi__HNVijRbg5PyWBTNuYBaFi/view?usp=sharing"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800/70 hover:bg-slate-700/80 text-slate-200 text-[12px] font-medium border border-slate-700/60 hover:border-slate-600/60 transition-all duration-150 shadow-sm active:scale-[0.97]"
+          >
+            <FileText className="w-3.5 h-3.5 text-sky-400" />
+            <span className="hidden sm:inline">Docs</span>
+          </a>
 
           {/* Guide button */}
           <button
