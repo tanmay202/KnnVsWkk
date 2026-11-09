@@ -17,6 +17,8 @@ describe('Redesigned UI Components', () => {
     expect(html).toContain('KNN Arena');
     expect(html).toContain('kNN vs wkNN');
     expect(html).toContain('v1.2');
+    expect(html).toContain('Documentation');
+    expect(html).toContain('knnwknn.pdf');
     expect(html).toContain('Guide &amp; Math');
   });
 
